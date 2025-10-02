@@ -2,12 +2,13 @@ const express = require('express');
 const app = express();
 const PORT = 8081;
 
-app.use (express.json());
+app.use(express.json());
 
-app.post('/mensagem', (req, res) => {
+app.post('/soma', (req, res) => {
     try {
-        const {nome, idade, time_favorito} = req.body;
-        console.log(`Olá ${nome}! Você tem ${idade} anos e torce para o ${time_favorito}! `);
+        const { numUm, numDois, numTres } = req.body;
+        const resultado = numUm + numDois + numTres;
+        console.log(`O resultado da soma é: ${resultado}`);
         res.status(201).json({ message: `Dados recebidos com sucesso no servidor.` })
     } catch (error) {
         console.error(error)
