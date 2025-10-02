@@ -4,11 +4,24 @@ const PORT = 8081;
 
 app.use(express.json());
 
-app.post('/soma', (req, res) => {
+async function validaLogin(usuario, senha) { //Validar os numeros
     try {
-        const { numUm, numDois, numTres } = req.body;
-        const resultado = numUm + numDois + numTres;
-        console.log(`O resultado da soma é: ${resultado}`);
+        if (isNaN(usuario) && isNaN(!senha)) {
+            console.log("Os valores estão corretos!");
+        }
+
+        return { numero1, numero2, numero3 }
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+app.post('/login', async (req, res)  => {
+    try {
+        const { usuario, senha} = await req.body;
+        if (usuario=="admin" && senha==1234) {
+            console.log("Os seus dados estão corretos");
+        }
         res.status(201).json({ message: `Dados recebidos com sucesso no servidor.` })
     } catch (error) {
         console.error(error)
