@@ -4,13 +4,12 @@ const PORT = 8081;
 
 app.use(express.json());
 
-async function validaLogin(usuario, senha) { //Validar os numeros
+async function validaLogin(usuario, senha) {
     try {
-        if (isNaN(usuario) && isNaN(!senha)) {
-            console.log("Os valores estão corretos!");
+        if (isNaN(usuario) && !isNaN(senha)) {
+            return (usuario, senha)
+            //console.log("Os valores estão corretos");
         }
-
-        return { numero1, numero2, numero3 }
     } catch (error) {
         throw new Error(error)
     }
@@ -19,10 +18,13 @@ async function validaLogin(usuario, senha) { //Validar os numeros
 app.post('/login', async (req, res)  => {
     try {
         const { usuario, senha} = await req.body;
-        if (usuario=="admin" && senha==1234) {
-            console.log("Os seus dados estão corretos");
+        const erros = validaLogin (usuario, senha);
+        if (usuario=="Admin" && senha==1234) {
+            res.status(201).json({ message: `Os seus dados estão corretos.` })
+        }else{
+            res.status(401).json ({message: `Os dados fornecidos estão incorretos, tente novamente`})
         }
-        res.status(201).json({ message: `Dados recebidos com sucesso no servidor.` })
+        res.status(error).json({ message: `Dados recebidos com sucesso no servidor.` })
     } catch (error) {
         console.error(error)
         res.status(500).json({ message: 'Ocorreu um erro ao processar a requisição.', errorMessage: error.message })
